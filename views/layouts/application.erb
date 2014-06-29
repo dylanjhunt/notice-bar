@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
+  <script type="text/javascript">
+    ShopifyApp.init({
+      apiKey: "<%= SinatraApp.settings.api_key %>",
+      shopOrigin: "<%= current_shop_url %>",
+      debug: true
+    });
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <%= bootstrap_assets %>
+  <link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <%= yield %>
+</body>
+</html>

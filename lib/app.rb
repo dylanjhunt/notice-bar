@@ -1,6 +1,5 @@
 require 'sinatra/shopify-sinatra-app'
 require 'nokogiri'
-require 'byebug'
 
 class SinatraApp < Sinatra::Base
   register Sinatra::Shopify
@@ -15,6 +14,7 @@ class SinatraApp < Sinatra::Base
       heading_text = ""
       link_text = ""
       link_address = ""
+      
 
       begin
         snippet = ShopifyAPI::Asset.find('snippets/notice-bar.liquid')
@@ -24,13 +24,15 @@ class SinatraApp < Sinatra::Base
         heading_text = bar.children[0].text
         link_text = bar.children[1].text
         link_address = bar.children[1]['href']
+      
       rescue ActiveResource::ResourceNotFound => e
       end
 
       erb :home, locals: {
         heading_text: heading_text,
         link_text: link_text,
-        link_address: link_address
+        link_address: link_address,
+      
       }
     end
   end
@@ -40,6 +42,7 @@ class SinatraApp < Sinatra::Base
       heading_text = params["heading_text"]
       link_text = params["link_text"]
       link_address = params["link_address"]
+      
 
       theme = ShopifyAPI::Asset.find('layout/theme.liquid')
 
@@ -55,7 +58,8 @@ class SinatraApp < Sinatra::Base
       value = erb :notice_bar, :layout => false, locals: {
         heading_text: heading_text,
         link_text: link_text,
-        link_address: link_address
+        link_address: link_address,
+      
       }
 
       snippet = ShopifyAPI::Asset.new(
